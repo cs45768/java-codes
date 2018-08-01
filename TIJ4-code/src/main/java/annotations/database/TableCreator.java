@@ -51,6 +51,24 @@ public class TableCreator {
                     }
                     columnDefs.add(columnName + " VARCHAR(" + sqlString.value() + ")" + getConstraints(sqlString.contraints()));
                 }
+                if (anns[0] instanceof SQLDouble) {
+                    SQLDouble sqlDouble = (SQLDouble) anns[0];
+                    if (sqlDouble.name().length() < 1) {
+                        columnName = field.getName().toUpperCase();
+                    } else {
+                        columnName = sqlDouble.name();
+                    }
+                    columnDefs.add(columnName + " decimal(" + sqlDouble.size()+","+sqlDouble.d() + ")" + getConstraints(sqlDouble.contraints()));
+                }
+                if (anns[0] instanceof SQLDate) {
+                    SQLDate sqlDate = (SQLDate) anns[0];
+                    if (sqlDate.name().length() < 1) {
+                        columnName = field.getName().toUpperCase();
+                    } else {
+                        columnName = sqlDate.name();
+                    }
+                    columnDefs.add(columnName + " datetime "+ getConstraints(sqlDate.contraints()));
+                }
                 StringBuilder creatCommand = new StringBuilder("CREATE TABLE " + tableName + "(");
                 for (String colemnDef : columnDefs) {
                     creatCommand.append("\n   " + colemnDef + ",");

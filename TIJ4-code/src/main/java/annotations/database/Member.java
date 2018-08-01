@@ -1,5 +1,7 @@
 package annotations.database;
 
+import java.util.Date;
+
 /**
  * Created by zhangchunhui on 2018/7/23.
  */
@@ -12,6 +14,11 @@ public class Member {
     String lastName;
     @SQLInteger
     Integer age;
+
+    @SQLDouble(size = 10,d=6)
+    float weight;
+    @SQLDate
+    Date birthDay;
     @SQLString(value = 30, contraints = @Constraints(primaryKey = true))
     String handle;
     static int memberCount;
@@ -34,6 +41,10 @@ public class Member {
 
     public static int getMemberCount() {
         return memberCount;
+    }
+
+    public float getWeight() {
+        return weight;
     }
 
     @Override
